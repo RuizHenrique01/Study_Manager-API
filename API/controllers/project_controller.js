@@ -23,15 +23,11 @@ exports.project_create_new = (req, res, next) => {
 exports.project_find_one = (req, res, next) => {
     const idProject = req.params.idProject;
     const idUser = req.params.idUser;
-    Project.find({ _id: idProject }).exec().then(result => {
+    Project.find({ _id: idProject, idUser: idUser }).exec().then(result => {
         if (result.length > 0) {
-            if (result[0].idUser == idUser) {
-                res.status(200).json({
-                    project: result
-                });
-            } else {
-                res.status(404).json({ message: "Not found this project!" });
-            }
+            res.status(200).json({
+                project: result
+            });
         } else {
             res.status(404).json({ message: "Not found this project!" });
         }
