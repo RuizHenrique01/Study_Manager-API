@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpg' || file.mimetype === 'image/png') {
+    if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
         cb(null, true);
     } else {
         cb(null, false);
@@ -23,11 +23,17 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
     storage: storage,
+    limits: {
+        fileSize: 5 * 1024 * 1024
+    },
     fileFilter: fileFilter
 });
 
 router.get("/:id", authCheck, userController.user_find_one);
-router.post("/signup", userController.user_creat_account, upload.single('productImage'));
+router.post("/signup", userController.user_creat_account, upload.single('photo'));
 router.post("/login", userController.user_login);
+router.patch("/:id", authCheck, userController.user_update);
+router.patch("/:id/photo", authCheck, upload.single('photo'), userController.user_update_photo);
+router.delete("/:id", authCheck, userController.user_validate, userController.user_delete);
 
 module.exports = router;
