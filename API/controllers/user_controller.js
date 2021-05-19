@@ -2,6 +2,7 @@ const User = require('../models/user_model');
 const env = require('../commons/environments');
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
+const fs = require('fs-extra');
 
 exports.user_find_one = (req, res, next) => {
     const id = req.params.id;
@@ -124,47 +125,15 @@ exports.user_validate = (req, res, next) => {
 
 exports.user_update = (req, res, next) => {
     const id = req.params.id;
-    User.findOneAndUpdate({_id : id}, req.body).exec().then(result => {
-        if(result){
+    User.findOneAndUpdate({ _id: id }, req.body).exec().then(result => {
+        if (result) {
             res.status(200).json({
                 message: "Success in Update!",
                 user: result
             });
-        }else{
+        } else {
             res.status(404).json({
-                message : "Not found this user!"
-            });
-        }
-    }).catch(err => {
-        res.status(500).json({
-            error: err.message
-        });
-    });
-};
-
-exports.user_update_photo = (req, res, next) => {
-    const id = req.params.id;
-    User.findById({_id : id}).exec().then(result => {
-        if(result){
-                result.photo = req.file.path;
-                result.save().then(doc => {
-                    if(doc){
-                        res.status(200).json({
-                            message: "Success in Update Photo!",
-                            user: result
-                        });
-                    }else{
-                        res.status(500).json({
-                            message : "Error in Update Photo!"
-                        });
-                    }}).catch(err => {
-                        res.status(500).json({
-                            error: err.message
-                        });
-                    });
-        }else{
-            res.status(404).json({
-                message : "Not found this user!"
+                message: "Not found this user!"
             });
         }
     }).catch(err => {
@@ -176,15 +145,74 @@ exports.user_update_photo = (req, res, next) => {
 
 exports.user_delete = (req, res, next) => {
     const id = req.params.id;
-    User.deleteOne({_id : id}).then(result => { 
-        if(result){
+    User.deleteOne({ _id: id }).then(result => {
+        if (result) {
             res.status(200).json({
                 message: "Success in delete account!"
             });
-        }else{
+        } else {
             res.status(500).json({
                 message: "Error in delete account!"
             });
+        }
+    }).catch(err => {
+        res.status(500).json({
+            error: err.message
+        });
+    });
+};
+
+exports.user_update_photo = (req, res, next) => {
+    const id = req.params.id;
+    User.findById({ _id: id }).exec().then(result => {
+        if (result) {
+            if (result.photo) {
+                fs.remove(result.photo);
+            }
+            result.photo = req.file.path;
+            result.save().then(doc => {
+                if (doc) {
+                    res.status(200).json({
+                        message: "Success in Update Photo!",
+                        photo: result.photo,
+                        url: 'http://localhost:' + env.port + "/" + result.photo
+                    });
+                } else {
+                    res.status(500).json({
+                        message: "Error in Update Photo!"
+                    });
+                }
+            });
+        }
+    }).catch(err => {
+        res.status(500).json({
+            error: err.message
+        });
+    });
+};
+
+exports.user_remove_photo = (req, res, next) => {
+    const id = req.params.id;
+    User.findById({ _id: id }).exec().then(result => {
+        if (result) {
+            if (result.photo) {
+                fs.remove(result.photo);
+                User.findOneAndUpdate({_id : id}, {$unset:{photo:1}}).then(doc => {
+                    if (doc) {
+                        res.status(200).json({
+                            message: "Success in Remove Photo!",
+                        });
+                    } else {
+                        res.status(500).json({
+                            message: "Error in Update Photo!"
+                        });
+                    }
+                });
+            }else{
+                res.status(404).json({
+                    message: "Not found Photo!"
+                }); 
+            }
         }
     }).catch(err => {
         res.status(500).json({

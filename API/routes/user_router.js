@@ -30,10 +30,11 @@ const upload = multer({
 });
 
 router.get("/:id", authCheck, userController.user_find_one);
-router.post("/signup", userController.user_creat_account, upload.single('photo'));
+router.post("/signup", userController.user_creat_account);
 router.post("/login", userController.user_login);
 router.patch("/:id", authCheck, userController.user_update);
-router.patch("/:id/photo", authCheck, upload.single('photo'), userController.user_update_photo);
 router.delete("/:id", authCheck, userController.user_validate, userController.user_delete);
+router.patch("/:id/photo", authCheck,userController.user_validate, upload.single('photo'), userController.user_update_photo);
+router.delete("/:id/photo", authCheck, userController.user_validate, userController.user_remove_photo);
 
 module.exports = router;
