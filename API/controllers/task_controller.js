@@ -2,7 +2,7 @@ const Project = require('../models/project_model');
 
 exports.task_add_new_task = (req, res, next) => {
     const idProject = req.params.idProject;
-    const idUser = req.params.idUser;
+    const idUser = req.headers.userid.split(" ")[0];
     Project.find({ _id: idProject, idUser: idUser }).exec().then(result => {
             result[0].tasks.push(req.body);
             result[0].save().then(doc => {
@@ -29,7 +29,7 @@ exports.task_add_new_task = (req, res, next) => {
 
 exports.task_get_all = (req, res, next) => {
     const idProject = req.params.idProject;
-    const idUser = req.params.idUser;
+    const idUser = req.headers.userid.split(" ")[0];
     Project.find({ _id: idProject, idUser: idUser }).exec().then(result => {
             res.status(200).json({
                 tasks: result[0].tasks
@@ -43,7 +43,7 @@ exports.task_get_all = (req, res, next) => {
 
 exports.task_get_one = (req, res, next) => {
     const idProject = req.params.idProject;
-    const idUser = req.params.idUser;
+    const idUser = req.headers.userid.split(" ")[0];
     const idTask = req.params.idTask;
     Project.find({ _id: idProject, idUser: idUser })
         .exec().then(result => {
@@ -63,7 +63,7 @@ exports.task_get_one = (req, res, next) => {
 
 exports.task_remove = (req, res, next) => {
     const idProject = req.params.idProject;
-    const idUser = req.params.idUser;
+    const idUser = req.headers.userid.split(" ")[0];
     const idTask = req.params.idTask;
     Project.find({ _id: idProject, idUser: idUser })
         .exec().then(result => {
@@ -92,7 +92,7 @@ exports.task_remove = (req, res, next) => {
 
 exports.task_update = (req, res, next) => {
     const idProject = req.params.idProject;
-    const idUser = req.params.idUser;
+    const idUser = req.headers.userid.split(" ")[0];
     const idTask = req.params.idTask;
     Project.find({ _id: idProject, idUser: idUser })
         .exec().then(result => {

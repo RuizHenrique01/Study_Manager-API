@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs-extra');
 
 exports.user_find_one = (req, res, next) => {
-    const id = req.params.id;
+    const id = req.headers.userid.split(" ")[0];
     User.findOne({ _id: id }).exec().then(doc => {
         if (doc) {
             res.status(200).json({
@@ -84,7 +84,7 @@ exports.user_login = (req, res, next) => {
                         }, env.JWT_KEY);
                         return res.status(200).json({
                             message: "Auth Success!",
-                            idUser: doc._id,
+                            UserId: doc._id,
                             token: token
                         });
                     } else {
@@ -107,7 +107,7 @@ exports.user_login = (req, res, next) => {
 }
 
 exports.user_validate = (req, res, next) => {
-    const id = req.params.idUser || req.params.id;
+    const id = req.headers.userid.split(" ")[0];
     User.findOne({ _id: id }).exec().then(doc => {
         if (doc) {
             next();
@@ -124,18 +124,12 @@ exports.user_validate = (req, res, next) => {
 };
 
 exports.user_update = (req, res, next) => {
-    const id = req.params.id;
+    const id = req.headers.userid.split(" ")[0];
     User.findOneAndUpdate({ _id: id }, req.body).exec().then(result => {
-        if (result) {
             res.status(200).json({
                 message: "Success in Update!",
                 user: result
             });
-        } else {
-            res.status(404).json({
-                message: "Not found this user!"
-            });
-        }
     }).catch(err => {
         res.status(500).json({
             error: err.message
@@ -144,7 +138,7 @@ exports.user_update = (req, res, next) => {
 };
 
 exports.user_delete = (req, res, next) => {
-    const id = req.params.id;
+    const id = req.headers.userid.split(" ")[0];
     User.deleteOne({ _id: id }).then(result => {
         if (result) {
             res.status(200).json({
@@ -163,7 +157,7 @@ exports.user_delete = (req, res, next) => {
 };
 
 exports.user_update_photo = (req, res, next) => {
-    const id = req.params.id;
+    const id = req.headers.userid.split(" ")[0];
     User.findById({ _id: id }).exec().then(result => {
         if (result) {
             if (result.photo) {
@@ -192,7 +186,7 @@ exports.user_update_photo = (req, res, next) => {
 };
 
 exports.user_remove_photo = (req, res, next) => {
-    const id = req.params.id;
+    const id = req.headers.userid.split(" ")[0];
     User.findById({ _id: id }).exec().then(result => {
         if (result) {
             if (result.photo) {
