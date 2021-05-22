@@ -6,11 +6,11 @@ const fs = require('fs-extra');
 
 exports.user_find_one = (req, res, next) => {
     const id = req.headers.userid.split(" ")[0];
-    User.findOne({ _id: id }).exec().then(doc => {
+    User.findOne({_id: id}).exec().then(doc => {
         if (doc) {
             res.status(200).json({
                 user: doc
-            })
+            });
         } else {
             res.status(404).json({
                 message: "Not found this user!"
@@ -25,7 +25,7 @@ exports.user_find_one = (req, res, next) => {
 
 exports.user_creat_account = (req, res, next) => {
     const email = req.body.email;
-    User.findOne({ email: email }).then(doc => {
+    User.findOne({email: email}).then(doc => {
         if (doc) {
             res.status(409).json({
                 message: "This email already exist!"
@@ -68,7 +68,7 @@ exports.user_creat_account = (req, res, next) => {
 
 exports.user_login = (req, res, next) => {
     const email = req.body.email;
-    User.findOne({ email: email }).exec().then(doc => {
+    User.findOne({email: email}).exec().then(doc => {
         if (doc) {
             const password = req.body.password;
             bcrypt.compare(password, doc.password, (err, result) => {
@@ -108,7 +108,7 @@ exports.user_login = (req, res, next) => {
 
 exports.user_validate = (req, res, next) => {
     const id = req.headers.userid.split(" ")[0];
-    User.findOne({ _id: id }).exec().then(doc => {
+    User.findOne({_id: id}).exec().then(doc => {
         if (doc) {
             next();
         } else {
@@ -125,7 +125,7 @@ exports.user_validate = (req, res, next) => {
 
 exports.user_update = (req, res, next) => {
     const id = req.headers.userid.split(" ")[0];
-    User.findOneAndUpdate({ _id: id }, req.body).exec().then(result => {
+    User.findOneAndUpdate({_id: id}, req.body).exec().then(result => {
             res.status(200).json({
                 message: "Success in Update!",
                 user: result
@@ -139,7 +139,7 @@ exports.user_update = (req, res, next) => {
 
 exports.user_delete = (req, res, next) => {
     const id = req.headers.userid.split(" ")[0];
-    User.deleteOne({ _id: id }).then(result => {
+    User.deleteOne({_id: id}).then(result => {
         if (result) {
             res.status(200).json({
                 message: "Success in delete account!"
@@ -158,7 +158,7 @@ exports.user_delete = (req, res, next) => {
 
 exports.user_get_photo = (req, res, next) => {
     const id = req.headers.userid.split(" ")[0];
-    User.findById({ _id: id }).exec().then(result => {
+    User.findById({_id: id}).exec().then(result => {
         if (result) {
             if (result.photo) {
                 res.status(200).json({
@@ -180,7 +180,7 @@ exports.user_get_photo = (req, res, next) => {
 
 exports.user_update_photo = (req, res, next) => {
     const id = req.headers.userid.split(" ")[0];
-    User.findById({ _id: id }).exec().then(result => {
+    User.findById({_id: id}).exec().then(result => {
         if (result) {
             if (result.photo) {
                 fs.remove(result.photo);
@@ -209,7 +209,7 @@ exports.user_update_photo = (req, res, next) => {
 
 exports.user_remove_photo = (req, res, next) => {
     const id = req.headers.userid.split(" ")[0];
-    User.findById({ _id: id }).exec().then(result => {
+    User.findById({_id: id}).exec().then(result => {
         if (result) {
             if (result.photo) {
                 fs.remove(result.photo);
