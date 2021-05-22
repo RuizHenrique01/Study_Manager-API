@@ -34,6 +34,7 @@ router.post("/signup", userController.user_creat_account);
 router.post("/login", userController.user_login);
 router.patch("/", authCheck, userController.user_validate, userController.user_update);
 router.delete("/", authCheck, userController.user_validate, userController.user_delete);
+router.get("/photo", authCheck,userController.user_validate, userController.user_get_photo);
 router.patch("/photo", authCheck,userController.user_validate, upload.single('photo'), userController.user_update_photo);
 router.delete("/photo", authCheck, userController.user_validate, userController.user_remove_photo);
 

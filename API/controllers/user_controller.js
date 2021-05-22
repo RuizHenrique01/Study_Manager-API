@@ -156,6 +156,28 @@ exports.user_delete = (req, res, next) => {
     });
 };
 
+exports.user_get_photo = (req, res, next) => {
+    const id = req.headers.userid.split(" ")[0];
+    User.findById({ _id: id }).exec().then(result => {
+        if (result) {
+            if (result.photo) {
+                res.status(200).json({
+                    photo: result.photo,
+                    link: `/${result.photo}`
+                });
+            }else {
+                res.status(404).json({
+                    message: "Not found photo!"
+                });
+            }
+        }
+    }).catch(err => {
+        res.status(500).json({
+            error: err.message
+        });
+    });
+};
+
 exports.user_update_photo = (req, res, next) => {
     const id = req.headers.userid.split(" ")[0];
     User.findById({ _id: id }).exec().then(result => {
@@ -169,7 +191,7 @@ exports.user_update_photo = (req, res, next) => {
                     res.status(200).json({
                         message: "Success in Update Photo!",
                         photo: result.photo,
-                        url: 'http://localhost:' + env.port + "/" + result.photo
+                        url: "/" + result.photo
                     });
                 } else {
                     res.status(500).json({
