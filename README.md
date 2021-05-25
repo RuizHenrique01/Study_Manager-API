@@ -15,20 +15,28 @@ O Study Manager tem como objetivo ajudar seus usuários a organizarem as suas ta
 
 # :rocket: Instalação
 
-## Pré-requisitos
+### Pré-requisitos
 É necessário que você tenha instalado na sua máquina o [Git](https://git-scm.com/) para poder baixar a aplicação e o [Node.JS](https://nodejs.org/en/) para poder executar a aplicação. Também é necessário que você tenha um editor instalado como o [VSCode](https://code.visualstudio.com/download).
 
-## Clone este repositório
+### Clone este repositório
+<pre>
 $ git clone https://github.com/RuizHenrique01/Study_Manager-API.git
+</pre>
 
-## Acesse a pasta do projeto no terminal
+### Acesse a pasta do projeto no terminal
+<pre>
 $ cd Study_Manager-API
+</pre>
 
-## Instale as dependências
+### Instale as dependências
+<pre>
 $ npm install
+</pre>
 
-## Execute a aplicação
+### Execute a aplicação
+<pre>
 $ npm start
+</pre>
 
 # 👨‍💻 Autor e Desenvolvedor
 
