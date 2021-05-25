@@ -42,10 +42,15 @@ exports.user_creat_account = (req, res, next) => {
                     user.password = hash;
                     user.save().then(result => {
                         if (result) {
-                            res.status(201).json({
-                                user: result
+                            const token = jwt.sign({
+                                email: result.email,
+                                userId: result._id
+                            }, env.JWT_KEY);
+                            return res.status(200).json({
+                                message: "Auth Success!",
+                                UserId: result._id,
+                                token: token
                             });
-                            next();
                         } else {
                             res.status(500).json({
                                 message: "Error in create account!"
