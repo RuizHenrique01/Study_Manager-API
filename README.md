@@ -38,6 +38,10 @@ $ npm install
 $ npm start
 </pre>
 
+# :books: Documentação
+
+Para ver a documentação clique [aqui](https://github.com/RuizHenrique01/Study_Manager-API/blob/master/documentation.md).
+
 # 👨‍💻 Autor e Desenvolvedor
 
 <img src="https://avatars.githubusercontent.com/u/43937107?s=400&u=5b83906cad7f603ae198f1c3c98e6bf60249c218&v=4" width="100" height="100"/>
