@@ -644,7 +644,7 @@ Para atualizar uma tarefa deve ser informado na URL o id do projeto e da tarefa,
 }
 </pre>
 
-### Deletar tarefas
+### 5.4 Deletar tarefas
 
 Para deletar uma tarefa de um projeto basta apenas passar o id do projeto e o id da tarefa na URL.
 
