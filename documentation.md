@@ -475,3 +475,194 @@ Para deletar um projeto basta passar seu id na url especificada.
   "message": "Success removed!"
 }
 </pre>
+
+## 5. Tasks
+
+| Parâmetro | Valor Padrão | Descrição | Required |
+|---|:---:|---|:---:|
+| name | null | Nome da tarefa. | true |  
+| description | null | Descrição da tarefa. | false |  
+| date | null | Data de entrega da tarefa. | false |
+| isCompleted | false | Status de conclusão da tarefa. | false |
+
+### 5.1 Adicionando tarefas em um projeto
+
+<p align="justify">
+Para adicionar uma tarefa é necessário passar o id do projeto para a determinada URL abaixo. Apenas o nome da tarefa é obrigatório.
+</p>
+
+### Exemplo:
+
+| Método | URL |
+|:---:|---|
+| PUT | http://localhost:3000/projects/60b2b13794e6e827fc2c6d0f/task |
+
+|Headers| Valor |
+|---|---|
+| Content-Type | application/json |
+| Authorization | Bearer token |
+| userId | 60b27c4594e6e827fc2c6d0d |
+
+***Request Body:***
+<pre>
+{ 
+  "name":"Test the API",
+  "description":"do the tests on the API"
+}
+</pre>
+
+***Response:***
+<pre>
+{
+  "project":{
+    "_id": "60b2b13794e6e827fc2c6d0f",
+    "name": "Study Manager",
+    "tasks":[
+      {
+        "isCompleted": false,
+        "_id": "60b2bc7394e6e827fc2c6d11",
+        "name": "Test the API",
+        "description": "do the tests on the API"
+      }
+    ],
+    "idUser": "60b27c4594e6e827fc2c6d0d",
+    "__v": 1
+  }
+}
+</pre>
+
+### 5.2 Obter tarefas
+
+### 5.2.1 Obter todas as tarefas
+
+Para obter todas as tarefas de um projeto basta apenas passar o id do projeto na URL.
+
+### Exemplo:
+
+| Método | URL |
+|:---:|---|
+| GET | http://localhost:3000/projects/60b2b13794e6e827fc2c6d0f/task |
+
+|Headers| Valor |
+|---|---|
+| Content-Type | application/json |
+| Authorization | Bearer token |
+| userId | 60b27c4594e6e827fc2c6d0d |
+
+***Response:***
+<pre>
+{
+  "tasks":[
+    {
+      "isCompleted": false,
+      "_id": "60b2bc7394e6e827fc2c6d11",
+      "name": "Test the API",
+      "description": "do the tests on the API"
+   },
+   {
+      "isCompleted": false,
+      "_id": "60b2bf0c94e6e827fc2c6d12",
+      "name": "Readme",
+      "description": "Create Readme"
+   },
+   {
+      "isCompleted": false,
+      "_id": "60b2bf5294e6e827fc2c6d13",
+      "name": "Documentation",
+      "description": "do the Documentation"
+   }
+  ]
+}
+</pre>
+
+### 5.2.2 Obter apenas uma tarefa
+
+<p align="justify">
+Para obter apenas uma tarefa de um projeto basta apenas passar o id do projeto e o id da tarefa na URL.
+</p>
+
+### Exemplo:
+
+| Método | URL |
+|:---:|---|
+| GET | http://localhost:3000/projects/60b2b13794e6e827fc2c6d0f/task/60b2bc7394e6e827fc2c6d11 |
+
+|Headers| Valor |
+|---|---|
+| Content-Type | application/json |
+| Authorization | Bearer token |
+| userId | 60b27c4594e6e827fc2c6d0d |
+
+***Response:***
+<pre>
+{
+  "task":{
+    "isCompleted": false,
+    "_id": "60b2bc7394e6e827fc2c6d11",
+    "name": "Test the API",
+    "description": "do the tests on the API"
+  }
+}
+</pre>
+
+### 5.3 Atualização de tarefas
+
+<p align="justify">
+Para atualizar uma tarefa deve ser informado na URL o id do projeto e da tarefa, além de informar os parâmetros e seus respectivos valores no body. A atualização de tarefas não sobrescreve o documento, então nenhum dado será alterado além daqueles passados no body.
+</p>
+
+### Exemplo:
+
+| Método | URL |
+|:---:|---|
+| PATCH | http://localhost:3000/projects/60b2b13794e6e827fc2c6d0f/task/60b2bc7394e6e827fc2c6d11 |
+
+|Headers| Valor |
+|---|---|
+| Content-Type | application/json |
+| Authorization | Bearer token |
+| userId | 60b27c4594e6e827fc2c6d0d |
+
+***Request Body:***
+<pre>
+{ 
+  "date":"2021/05/30",
+  "isCompleted":true
+}
+</pre>
+
+***Response:***
+<pre>
+{
+  "task":{
+  "isCompleted": true,
+  "_id": "60b2bc7394e6e827fc2c6d11",
+  "name": "Test the API",
+  "description": "do the tests on the API",
+  "date": "2021-05-30T04:00:00.000Z"
+  }
+}
+</pre>
+
+### Deletar tarefas
+
+Para deletar uma tarefa de um projeto basta apenas passar o id do projeto e o id da tarefa na URL.
+
+### Exemplo:
+
+| Método | URL |
+|:---:|---|
+| DELETE | http://localhost:3000/projects/60b2b13794e6e827fc2c6d0f/task/60b2bc7394e6e827fc2c6d11 |
+
+|Headers| Valor |
+|---|---|
+| Content-Type | application/json |
+| Authorization | Bearer token |
+| userId | 60b27c4594e6e827fc2c6d0d |
+
+***Response:***
+<pre>
+{
+  "message": "Success remove!"
+}
+</pre>
