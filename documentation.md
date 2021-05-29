@@ -281,3 +281,197 @@ Para obter, atualizar e remover a foto do usuário basta utilizar os respectivos
 }
 </pre>
 
+## 4. Project
+
+| Parâmetro | Valor Padrão | Descrição | Required |
+|---|:---:|---|:---:|
+| idUser | null | Id do usuário. | true | 
+| name | null | Nome do projeto. | true |  
+| description | null | Descrição do projeto. | false |  
+| tasks | null | Array de tarefas do projeto. | false |  
+
+### 4.1 Criação de projetos
+
+<p align="justify">
+Para criar projetos é obrigatório ser passado apenas dois métodos, o <b>id do usuário</b> e o nome do projeto, entretanto o <b>id do usuário</b> já é passado pelo header, então é necessário somente o nome do projeto.
+</p>
+
+### Exemplo:
+
+| Método | URL |
+|:---:|---|
+| POST | http://localhost:3000/projects/ |
+
+|Headers| Valor |
+|---|---|
+| Content-Type | application/json |
+| Authorization | Bearer token |
+| userId | 60b27c4594e6e827fc2c6d0d |
+
+***Request Body:***
+<pre>
+{ 
+  "name":"New Project",
+  "description":"Project test"
+}
+</pre>
+
+***Response:***
+<pre>
+{
+  "project":{
+    "_id": "60b2aea494e6e827fc2c6d0e",
+    "name": "New Project",
+    "description": "Project test",
+    "tasks":[],
+    "idUser": "60b27c4594e6e827fc2c6d0d",
+    "__v": 0
+  }
+}
+</pre>
+
+### 4.1 Obtenção de projetos
+
+### 4.1.1 Obter todos os projetos do usuário
+
+Para obter todos os projetos do usuário basta utilizar o método GET na URL especificada.
+
+### Exemplo:
+
+| Método | URL |
+|:---:|---|
+| GET | http://localhost:3000/projects/ |
+
+|Headers| Valor |
+|---|---|
+| Content-Type | application/json |
+| Authorization | Bearer token |
+| userId | 60b27c4594e6e827fc2c6d0d |
+
+***Response:***
+<pre>
+{
+  "projects":[
+    {
+      "_id": "60b2aea494e6e827fc2c6d0e",
+      "name": "New Project",
+      "description": "Project test",
+      "tasks":[],
+      "idUser": "60b27c4594e6e827fc2c6d0d",
+      "__v": 0
+    },
+    {
+      "_id": "60b2b13794e6e827fc2c6d0f",
+      "name": "Study Manager",
+      "tasks":[],
+      "idUser": "60b27c4594e6e827fc2c6d0d",
+      "__v": 0
+    },
+    {
+      "_id": "60b2b14d94e6e827fc2c6d10",
+      "name": "Project Stages",
+      "tasks":[],
+      "idUser": "60b27c4594e6e827fc2c6d0d",
+      "__v": 0
+    }
+  ]
+}
+</pre>
+
+### 4.1.2 Obter apenas um projeto do usuário
+
+<p align="justify">
+Para obter apenas um projeto do usuário é necessário que seja informado na URL o id do projeto que o usuário deseja obter, como segue o exemplo.
+</p>
+
+### Exemplo:
+
+| Método | URL |
+|:---:|---|
+| GET | http://localhost:3000/projects/60b2aea494e6e827fc2c6d0e |
+
+|Headers| Valor |
+|---|---|
+| Content-Type | application/json |
+| Authorization | Bearer token |
+| userId | 60b27c4594e6e827fc2c6d0d |
+
+***Response:***
+<pre>
+{
+  "project":[
+    {
+      "_id": "60b2aea494e6e827fc2c6d0e",
+      "name": "New Project",
+      "description": "Project test",
+      "tasks":[],
+      "idUser": "60b27c4594e6e827fc2c6d0d",
+      "__v": 0
+    }
+  ]
+}
+</pre>
+
+### 4.2 Atualização de projetos
+
+<p align="justify">
+Para atualizar um projeto basta passar o id do projeto na URL e escrever os parâmetros e seus respectivos valores no body. Ao atualizar nenhum dado é sobrescrito, logo somente os parâmetros passados no body sofrerão alterações em seus valores.
+</p>
+
+### Exemplo:
+
+| Método | URL |
+|:---:|---|
+| PATCH | http://localhost:3000/projects/60b2aea494e6e827fc2c6d0e |
+
+|Headers| Valor |
+|---|---|
+| Content-Type | application/json |
+| Authorization | Bearer token |
+| userId | 60b27c4594e6e827fc2c6d0d |
+
+***Request Body:***
+<pre>
+{ 
+  "name":"Project Update"
+}
+</pre>
+
+***Response:***
+<pre>
+{
+  "project":{
+    "_id": "60b2aea494e6e827fc2c6d0e",
+    "name": "Project Update",
+    "description": "Project test",
+    "tasks":[],
+    "idUser": "60b27c4594e6e827fc2c6d0d",
+    "__v": 0
+  }
+}
+</pre>
+
+### 4.2 Deletar projeto
+
+<p align="justify">
+Para deletar um projeto basta passar seu id na url especificada.
+</p>
+
+### Exemplo:
+
+| Método | URL |
+|:---:|---|
+| DELETE | http://localhost:3000/projects/60b2aea494e6e827fc2c6d0e |
+
+|Headers| Valor |
+|---|---|
+| Content-Type | application/json |
+| Authorization | Bearer token |
+| userId | 60b27c4594e6e827fc2c6d0d |
+
+***Response:***
+<pre>
+{
+  "message": "Success removed!"
+}
+</pre>
