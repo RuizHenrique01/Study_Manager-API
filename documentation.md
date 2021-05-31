@@ -1,17 +1,36 @@
 # Study Manager
 
-## 1. Introdução
-
-<p align="justify">
-Esta é a documentação para te orientar a como utilizar a API, será mostrado todos os endpoints disponíveis e suas respostas e requisições.
-</p>
-
-## 2. Visão Geral
+## 1. Visão Geral
 
 <p align="justify">
 O Study Manager é uma API de organização de projetos e estudos, onde o usuário pode criar projetos e dentro destes projetos o usuário pode organizar tarefas, adicionando nome, descrição e data de entrega.</br>
 O Study Manager tem como objetivo ajudar seus usuários a organizarem as suas tarefas, assim facilitando a execução e o desenvolvimento de projetos ou planos de estudo. Além de armazenar outras informações que podem ser usadas conforme a necessidade do usuário como, por exemplo, horas totais de estudo.
 </p>
+
+## 2. Instalação 
+
+### Pré-requisitos
+É necessário que você tenha instalado na sua máquina o [Git](https://git-scm.com/) para poder baixar a aplicação e o [Node.JS](https://nodejs.org/en/) para poder executar a aplicação. Também é necessário que você tenha um editor instalado como o [VSCode](https://code.visualstudio.com/download).
+
+### Clone este repositório
+<pre>
+$ git clone https://github.com/RuizHenrique01/Study_Manager-API.git
+</pre>
+
+### Acesse a pasta do projeto no terminal
+<pre>
+$ cd Study_Manager-API
+</pre>
+
+### Instale as dependências
+<pre>
+$ npm install
+</pre>
+
+### Execute a aplicação
+<pre>
+$ npm start
+</pre>
 
 ## 3. User
 
@@ -330,9 +349,9 @@ Para criar projetos é obrigatório ser passado apenas dois métodos, o <b>id do
 }
 </pre>
 
-### 4.1 Obtenção de projetos
+### 4.2 Obtenção de projetos
 
-### 4.1.1 Obter todos os projetos do usuário
+### 4.2.1 Obter todos os projetos do usuário
 
 Para obter todos os projetos do usuário basta utilizar o método GET na URL especificada.
 
@@ -378,7 +397,7 @@ Para obter todos os projetos do usuário basta utilizar o método GET na URL esp
 }
 </pre>
 
-### 4.1.2 Obter apenas um projeto do usuário
+### 4.2.2 Obter apenas um projeto do usuário
 
 <p align="justify">
 Para obter apenas um projeto do usuário é necessário que seja informado na URL o id do projeto que o usuário deseja obter, como segue o exemplo.
@@ -412,7 +431,7 @@ Para obter apenas um projeto do usuário é necessário que seja informado na UR
 }
 </pre>
 
-### 4.2 Atualização de projetos
+### 4.3 Atualização de projetos
 
 <p align="justify">
 Para atualizar um projeto basta passar o id do projeto na URL e escrever os parâmetros e seus respectivos valores no body. Ao atualizar nenhum dado é sobrescrito, logo somente os parâmetros passados no body sofrerão alterações em seus valores.
@@ -451,7 +470,7 @@ Para atualizar um projeto basta passar o id do projeto na URL e escrever os par�
 }
 </pre>
 
-### 4.2 Deletar projeto
+### 4.4 Deletar projeto
 
 <p align="justify">
 Para deletar um projeto basta passar seu id na url especificada.
