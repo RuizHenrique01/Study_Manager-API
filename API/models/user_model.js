@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../database/index');
 
 const userSchema = mongoose.Schema({
     email: {
@@ -10,6 +10,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         minLength: 6,
+        select: false
     },
     name:{
         type: String,
@@ -33,9 +34,13 @@ const userSchema = mongoose.Schema({
     trophies:{
         type: Number,
         default: 0
+    },
+    created_at:{
+        type: Date,
+        default: Date.now()
     }
 });
 
 const User = mongoose.model("User", userSchema);
 
-module.exports = User
+module.exports = User;

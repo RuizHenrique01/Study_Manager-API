@@ -1,21 +1,4 @@
-const mongoose = require('mongoose');
-
-const tasksSchema = mongoose.Schema({
-    name:{
-        type: String,
-        required: true,
-    },
-    description:{
-        type: String
-    },
-    date:{
-        type: Date
-    },
-    isCompleted:{
-        type: Boolean,
-        default: false
-    }
-});
+const mongoose = require('../database');
 
 const projectSchema = mongoose.Schema({
     idUser:{
@@ -30,7 +13,10 @@ const projectSchema = mongoose.Schema({
     description:{
         type: String
     },
-    tasks:[tasksSchema]
+    tasks:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Task"
+    }]
 });
 
 const Project = mongoose.model('Project', projectSchema);

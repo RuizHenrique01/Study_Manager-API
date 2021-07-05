@@ -1,51 +1,27 @@
 const express = require('express');
 const app = express();
-const userRouter = require('./API/routes/user_router');
-const projectRouter = require('./API/routes/project_router');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const mongoose = require('mongoose');
-const env = require('./API/commons/environments');
+require("express-async-errors");
 
-mongoose.connect(env.urlDB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true
-});
-mongoose.Promise = global.Promise;
+const userRouter = require('./API/routes/user_router');
+const projectRouter = require('./API/routes/project_router');
+const taskController = require('./API/routes/task_router');
 
 app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
-    if (req.method === "OPTIONS") {
-        res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-        return res.status(200).json({});
-    }
-    next();
-});
-
 app.use("/user", userRouter);
 app.use("/projects", projectRouter);
+app.use("/projects", taskController);
 
-app.use((req, res, next) => {
-    const error = new Error("Not Found");
-    error.status(404);
-    next(error);
-});
+app.use((err, request, response, next) => {
+    if (err instanceof Error)
+        return response.status(400).json({ error: err.message });
 
-app.use((error, req, res, next) => {
-    res.status(error.status || 500);
-    res.json({
-        message: error.message
-    });
+    return response.status(500).json({ error: "Internal Server Error!"});
 });
 
 module.exports = app
