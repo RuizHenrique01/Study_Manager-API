@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 app.use("/", (request, response) => {
     return response.json({
-        message: "Welcome to the Study API Manager!"
+        message: "Welcome to the Study Manager API!"
     });
 });
 
