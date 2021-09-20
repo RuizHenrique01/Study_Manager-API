@@ -10,8 +10,14 @@ O Study Manager tem como objetivo ajudar seus usuários a organizarem as suas ta
 # 🛠 Tecnologias Utilizadas
 
 - Javascript
-- Node.Js
+- NodeJS
+- Express.js
+- JWT
 - MongoDB
+
+# ☄ Deploy no Heroku
+
+Para acessar o deploy da aplicação clique [aqui](https://study-manager-api.herokuapp.com/).
 
 # :rocket: Instalação
 
