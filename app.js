@@ -13,12 +13,6 @@ app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/", (request, response) => {
-    return response.json({
-        message: "Welcome to the Study Manager API!"
-    });
-});
-
 app.use("/user", userRouter);
 app.use("/projects", projectRouter);
 app.use("/projects", taskController);
@@ -30,4 +24,4 @@ app.use((err, request, response, next) => {
     return response.status(500).json({ error: "Internal Server Error!"});
 });
 
-module.exports = app
+module.exports = app;
