@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
+const cors = require('cors')
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 require("express-async-errors");
 
+app.use(cors());
 const userRouter = require('./API/routes/user_router');
 const projectRouter = require('./API/routes/project_router');
 const taskController = require('./API/routes/task_router');
