@@ -53,7 +53,6 @@ exports.user_login = async (request, response) => {
 
 function generatorToken(user) {
     return sign({
-        email: user.email,
         userid: user._id
     },
         env.JWT_KEY,
